@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Detail Warga kelurahan</title>
+</head>
+
+<body>
+    <h1>Detail Warga</h1>
+    <ul>
+        <li>{{warga.nik}}</li>
+        <li>{{warga.nama_lengkap}}</li>
+        <li>{{warga.alamat}}</li>
+        <li>{{warga.no_telepon}}</li>
+        <li>{{warga.tanggal_registrasi}}</li>
+    </ul>
+
+    <hr>
+    <h2>Daftar Pengaduan oleh {{ object.nama_lengkap }}</h2>
+
+    <ul>
+        {% for aduan in object.pengaduan.all %}
+        <li>
+            <strong>{{ aduan.judul }}</strong> (Status: {{ aduan.get_status_display }})
+            <p>{{ aduan.deskripsi }}</p>
+        </li>
+        {% empty %}
+        <li>Warga ini belum pernah membuat pengaduan.</li>
+        {% endfor %}
+    </ul>
+
+</body>
+
+</html>
