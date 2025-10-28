@@ -19,5 +19,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('warga/', include('warga.urls')),
+    path('warga/', include('warga.urls')), #URL untuk aplikasi warga
+    path('api/', include('warga.api_urls')), #URL untuk API warga
 ]
