@@ -4,7 +4,8 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .models import Warga, Pengaduan   
 from .forms import WargaForm, PengaduanForm 
 from rest_framework.generics import ListAPIView, RetrieveAPIView #Import untuk DRF
-from .serializers import WargaSerializer
+from .serializers import WargaSerializer, PengaduanSerializer  #Import serializer untuk DRF
+from rest_framework import viewsets
 
 
 # Create your views here.
@@ -56,10 +57,18 @@ class PengaduanDeleteView(DeleteView):
     success_url = reverse_lazy('pengaduan_list')
 
 #API View for Warga
-class WargaListAPIView(ListAPIView):
-    queryset = Warga.objects.all()
+# class WargaListAPIView(ListAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+# class WargaDetailAPIView(RetrieveAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+class WargaViewSet(viewsets.ModelViewSet):
+    queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
 
-class WargaDetailAPIView(RetrieveAPIView):
-    queryset = Warga.objects.all()
-    serializer_class = WargaSerializer
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all().order_by('-tanggal_lapor')
+    serializer_class = PengaduanSerializer
